@@ -1,0 +1,131 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPy//8kY7jfKeXC+0xuCtKg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/carlosviniharo/DEA113-G1/blob/main/Class13_ParticipationExercise\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jjRDy1y27-zr",
+        "outputId": "a19b2c9f-9420-42f3-db78-9beb30903bd2"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[nltk_data] Downloading package punkt_tab to /root/nltk_data...\n",
+            "[nltk_data]   Unzipping tokenizers/punkt_tab.zip.\n",
+            "[nltk_data] Downloading package stopwords to /root/nltk_data...\n",
+            "[nltk_data]   Unzipping corpora/stopwords.zip.\n",
+            "[nltk_data] Downloading package wordnet to /root/nltk_data...\n",
+            "[nltk_data] Downloading package vader_lexicon to /root/nltk_data...\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "True"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 1
+        }
+      ],
+      "source": [
+        "import nltk\n",
+        "nltk.download('punkt_tab')\n",
+        "nltk.download('stopwords')\n",
+        "nltk.download('wordnet')\n",
+        "nltk.download('vader_lexicon')\n",
+        "# nltk.download('all')"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Text Classification\n",
+        "\n",
+        "import nltk\n",
+        "from sklearn.feature_extraction.text import CountVectorizer\n",
+        "from sklearn.naive_bayes import MultinomialNB\n",
+        "\n",
+        "# Training data\n",
+        "documents = [\n",
+        "    (\"I love this course\", \"positive\"),\n",
+        "    (\"I hate this program\", \"negative\"),\n",
+        "    (\"This was an awesome movie\", \"positive\"),\n",
+        "    (\"The course was terrible\", \"negative\")\n",
+        "]\n",
+        "\n",
+        "# Prepare features and labels\n",
+        "vectorizer = CountVectorizer()\n",
+        "features = vectorizer.fit_transform([doc[0] for doc in documents])\n",
+        "labels = [doc[1] for doc in documents]\n",
+        "\n",
+        "# Train a classifier (Naive Bayes)\n",
+        "classifier = MultinomialNB()\n",
+        "classifier.fit(features, labels)\n",
+        "\n",
+        "# Test with a new example\n",
+        "new_example = vectorizer.transform([\"I really enjoyed watching this film\"])\n",
+        "prediction = classifier.predict(new_example)\n",
+        "print(prediction)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mhLgQpgS8DH5",
+        "outputId": "7fc09bf6-e258-46f0-c662-9b0e7abf7190"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['positive']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "XXNFqTNh8HbK"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
